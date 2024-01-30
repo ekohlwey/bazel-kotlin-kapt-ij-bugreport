@@ -1,0 +1,5 @@
+bazel-bazel-runfiles-bugreport
+bazel-bin
+bazel-out
+bazel-testlogs
+.ijwb

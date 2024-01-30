@@ -1,0 +1,25 @@
+bazel_dep(
+    name = "rules_java",
+    version = "7.3.2",
+)
+bazel_dep(
+    name = "rules_kotlin",
+    version = "1.9.0",
+)
+bazel_dep(
+    name = "rules_jvm_external",
+    version = "6.0",
+)
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
+CASSANDRA_VERSION = "4.13.0"
+
+maven.install(
+    artifacts = [
+        "com.datastax.oss:java-driver-core:%s" % CASSANDRA_VERSION,
+        "com.datastax.oss:java-driver-mapper-processor:%s" % CASSANDRA_VERSION,
+        "com.datastax.oss:java-driver-mapper-runtime:%s" % CASSANDRA_VERSION,
+    ],
+)
+use_repo(maven, "maven")

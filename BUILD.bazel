@@ -1,0 +1,24 @@
+load("@rules_java//java:defs.bzl", "java_plugin")
+load("@rules_jvm_external//:defs.bzl", "artifact")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+java_plugin(
+    name = "java_driver_mapper_processor",
+    generates_api = True,
+    processor_class = "com.datastax.oss.driver.internal.mapper.processor.MapperProcessor",
+    deps = [
+        artifact("com.datastax.oss:java-driver-mapper-processor"),
+    ],
+)
+
+kt_jvm_library(
+    name = "bug_example",
+    srcs = glob(["src/main/kotlin/**/*.kt"]),
+    plugins = [
+        ":java_driver_mapper_processor",
+    ],
+    deps = [
+        artifact("com.datastax.oss:java-driver-core"),
+        artifact("com.datastax.oss:java-driver-mapper-runtime"),
+    ],
+)
